@@ -15,7 +15,7 @@ HealthCheck provides your Laravel application with a `/healthcheck` endpoint to 
 Via Composer
 
 ``` bash
-$ composer require io-digital/healthcheck
+$ composer require io-digital/health-check
 ```
 
 Add the ServiceProvider to your config/app.php providers array:
@@ -74,7 +74,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/io-digital/healthcheck.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/io-digital/healthcheck
-[link-downloads]: https://packagist.org/packages/io-digital/healthcheck
+[link-packagist]: https://packagist.org/packages/io-digital/health-check
+[link-downloads]: https://packagist.org/packages/io-digital/health-check
 [link-author]: https://github.com/io-digital
 [link-contributors]: ../../contributors
