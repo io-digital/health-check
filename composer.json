@@ -1,7 +1,7 @@
 {
-    "name": "IoDigital/HealthCheck",
+    "name": "io-digital/health-check",
     "type": "library",
-    "description": "Perform application health checks",
+    "description": "A Laravel package that performs health checks on your application",
     "keywords": [
         "IoDigital",
         "HealthCheck",

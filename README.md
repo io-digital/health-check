@@ -33,7 +33,7 @@ For now the endpoint returns the following:
 * `200` reponse
 * JSON object with the following layout:
 
-```
+```json
 {
     "application": {
         "message": "Application is running",
