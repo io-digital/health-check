@@ -40,7 +40,7 @@ For now the endpoint returns the following:
         "success": true
     },
     "database": {
-        "message": "There was an error connecting to the database.",
+        "message": "There was an error connecting to the database. Error has been logged.",
         "success": false
     }
 }

@@ -19,10 +19,10 @@ class HealthCheck
      */
     public function getStatus()
     {
-        $appliation = $this->applicationTest();
+        $application = $this->applicationTest();
         $database = $this->databaseTest();
 
-        $status = array_merge($appliation, $database);
+        $status = array_merge($application, $database);
 
         return response()->json($status, 200);
     }
@@ -35,7 +35,7 @@ class HealthCheck
     private function databaseTest()
     {
         try {
-            $pdo = DB::getPdo();
+            $pdo = DB::connection()->getPdo();
 
             return [
                 'database' => [
@@ -45,9 +45,10 @@ class HealthCheck
             ];
         } catch (\Exception $e) {
             Log::error('HealthCheck Database Error -- ' . $e->getMessage() . ' --');
+
             return [
                 'database' => [
-                    'message' => 'There was an error connecting to the database.',
+                    'message' => 'There was an error connecting to the database. Error has been logged.',
                     'success' => false,
                 ]
             ];
