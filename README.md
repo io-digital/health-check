@@ -24,6 +24,22 @@ Add the ServiceProvider to your config/app.php providers array:
 IoDigital\HealthCheck\HealthCheckServiceProvider::class,
 ```
 
+Then run the following command artisan command:
+
+```bash
+$ php artisan vendor:publish --provider="IoDigital\HealthCheck\HealthCheckServiceProvider" 
+```
+
+This will publish the package config file to `config/healthcheck.php`.
+
+You currently have the options to select which tests to perform:
+
+```php
+'ssl' => true,
+'database' => true,
+'application' => true,
+```
+
 ## Usage
 
 The package automatically adds the `/healthcheck` endpoint to your application. All you need to do is hit that route.
@@ -41,6 +57,10 @@ For now the endpoint returns the following:
     },
     "database": {
         "message": "There was an error connecting to the database. Error has been logged.",
+        "success": false
+    },
+    "ssl": {
+        "message": "SSL is working.",
         "success": false
     }
 }

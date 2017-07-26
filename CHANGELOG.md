@@ -4,10 +4,11 @@ All Notable changes to `HealthCheck` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## NEXT - YYYY-MM-DD
+## NEXT - 2017-07-26
 
 ### Added
-- Nothing
+- Added check for SSL
+- Created package config file
 
 ### Deprecated
 - Nothing

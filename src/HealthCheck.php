@@ -13,18 +13,13 @@ class HealthCheck
     }
 
     /**
-     * Merge test messages
+     * Query application health
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function getStatus()
     {
-        $application = $this->applicationTest();
-        $database = $this->databaseTest();
-
-        $status = array_merge($application, $database);
-
-        return response()->json($status, 200);
+        return response()->json($this->performChecks(), 200);
     }
 
     /**
@@ -68,5 +63,53 @@ class HealthCheck
                 'success' => true,
             ]
         ];
+    }
+
+    /**
+     * Only when using SSL, is 'HTTP_X_FORWARDED_PROTO' is set to https
+     *
+     * @return array
+     */
+    private function sslTest()
+    {
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+            return [
+                'ssl' => [
+                    'message' => 'SSL is working.',
+                    'success' => true
+                ]
+            ];
+        } else {
+            return [
+                'ssl' => [
+                    'message' => 'SSL is not working.',
+                    'success' => false
+                ]
+            ];
+        }
+    }
+
+    /**
+     * Check and perform selected health checks
+     *
+     * @return array
+     */
+    private function performChecks()
+    {
+        $ssl = $database = $application = [];
+
+        if (config('healthcheck.ssl') === true) {
+            $ssl = $this->sslTest();
+        }
+
+        if (config('healthcheck.application') === true) {
+            $database = $this->databaseTest();
+        }
+
+        if (config('healthcheck.database') === true) {
+            $application = $this->applicationTest();
+        }
+
+        return array_merge($application, $database, $ssl);
     }
 }
