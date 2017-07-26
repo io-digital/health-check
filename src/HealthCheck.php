@@ -2,14 +2,22 @@
 
 namespace IoDigital\HealthCheck;
 
+require(__DIR__ . '/../vendor/autoload.php');
+
+use Linfo\Linfo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class HealthCheck
 {
+    /**
+     * @var Linfo
+     */
+    protected $linfo;
+
     public function __construct()
     {
-        //
+        $this->linfo = new Linfo();
     }
 
     /**
@@ -90,13 +98,57 @@ class HealthCheck
     }
 
     /**
+     * Check memory usage
+     *
+     * @return array
+     */
+    private function memoryTest()
+    {
+        $info = $this->linfo->getParser();
+
+        return [
+            'memory' => [
+                'message' => $info->getRam(),
+                'success' => true
+            ]
+        ];
+    }
+
+    /**
+     * Check CPU usage
+     *
+     * @return array
+     */
+    private function cpuTest()
+    {
+        $info = $this->linfo->getParser();
+        $os = $info->getOS();
+
+        if (strcmp($os, 'Linux') === 0) {
+            return [
+                'cpu_usage' => [
+                    'message' => $info->getCPUUsage(),
+                    'success' => true
+                ]
+            ];
+        } else {
+            return [
+                'cpu_usage' => [
+                    'message' => 'Not applicable on ' . $os,
+                    'success' => true
+                ]
+            ];
+        }
+    }
+
+    /**
      * Check and perform selected health checks
      *
      * @return array
      */
     private function performChecks()
     {
-        $ssl = $database = $application = [];
+        $ssl = $database = $application = $memory = $cpu = [];
 
         if (config('healthcheck.ssl') === true) {
             $ssl = $this->sslTest();
@@ -110,6 +162,14 @@ class HealthCheck
             $application = $this->applicationTest();
         }
 
-        return array_merge($application, $database, $ssl);
+        if (config('healthcheck.cpu_usage') === true) {
+            $cpu = $this->cpuTest();
+        }
+
+        if (config('healthcheck.memory') === true) {
+            $memory = $this->memoryTest();
+        }
+
+        return array_merge($application, $database, $ssl, $memory, $cpu);
     }
 }
