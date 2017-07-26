@@ -7,6 +7,24 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## NEXT - 2017-07-26
 
 ### Added
+- Added check for memory usage
+- Added check for cpu usage
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Nothing
+
+### Removed
+- Nothing
+
+### Security
+- Nothing
+
+## NEXT - 2017-07-26
+
+### Added
 - Added check for SSL
 - Created package config file
 

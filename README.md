@@ -38,6 +38,10 @@ You currently have the options to select which tests to perform:
 'ssl' => true,
 'database' => true,
 'application' => true,
+
+//System information
+'memory' => false,
+'cpu_usage' => false,
 ```
 
 ## Usage
