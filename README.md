@@ -65,7 +65,7 @@ For now the endpoint returns the following:
     },
     "ssl": {
         "message": "SSL is working.",
-        "success": false
+        "success": true 
     }
 }
 ```
